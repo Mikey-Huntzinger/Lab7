@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Quotes</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Famous Quotes</h1>
+        <div class="row">
+            <% for(let i=0; i < rows.length; i++) { %>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-3">
+                                <p>
+                                    <%= rows[i].quote %>
+                                </p>
+                            </blockquote>
+                            <a class="authors btn btn-outline-primary" href="#" authorId="<%=rows[i].authorId%>">
+                                <%= rows[i].firstName %>
+                                    <%= rows[i].lastName %>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+        <dialog>
+            <div id="authorInfo" class="mt-5 d-none">
+                <div class="card mx-auto shadow-lg" style="max-width: 500px;">
+                    <div class="card-body text-center">
+                        <h2 id="authorName" class="mb-3"></h2>
+                        <img id="authorImage" width="200px" class="rounded-circle shadow mb-3" alt="Author portrait">
+                    </div>
+                </div>
+                <button id="closeModal"> Close </button>
+            </div>
+        </dialog>
+    </div>
+
+    <!-- Bootstrap JS Bundle CDN (for some components if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function $(selector) {
+            return document.querySelector(selector);
+        }
+
+        let authors = document.querySelectorAll(".authors");
+        for (let author of authors) {
+            author.addEventListener('click', getAuthorInfo);
+        }
+
+        $("#closeModal").addEventListener("click", function() {
+            $("dialog").close();
+        });
+
+        async function getAuthorInfo(e) {
+            e.preventDefault();
+            let authorId = this.getAttribute("authorId").trim();
+            let url = "api/authors/" + authorId;
+            let response = await fetch(url);
+            let data = await response.json();
+            $("#authorName").textContent = data[0].firstName + " " + data[0].lastName;
+            $("#authorImage").src = data[0].portrait;
+            $("#authorInfo").classList.remove("d-none");
+            $("dialog").showModal();
+        }
+    </script>
+</body>
+
+</html>
