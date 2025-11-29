@@ -1,0 +1,49 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<div class="container mt-5">
+    <h1><%= action %> Author</h1>
+    <form action="/admin/<%= action == 'Edit' ? 'editAuthor' : 'addAuthor' %>" method="POST">
+        <% if (action == 'Edit') { %>
+            <input type="hidden" name="authorId" value="<%= author.authorId %>">
+        <% } %>
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" name="firstName" value="<%= author.firstName %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="lastName" value="<%= author.lastName %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" name="dob" value="<%= author.dob %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date of Death</label>
+            <input type="date" class="form-control" name="dod" value="<%= author.dod %>">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Sex (M/F)</label>
+            <input type="text" class="form-control" name="sex" value="<%= author.sex %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Profession</label>
+            <input type="text" class="form-control" name="profession" value="<%= author.profession %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <input type="text" class="form-control" name="country" value="<%= author.country %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Portrait URL</label>
+            <input type="text" class="form-control" name="portrait" value="<%= author.portrait %>">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Biography</label>
+            <textarea class="form-control" name="biography"><%= author.biography %></textarea>
+        </div>
+        <button type="submit" class="btn btn-success"><%= action %></button>
+    </form>
+</div>
+</body>
+</html>

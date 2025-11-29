@@ -1,0 +1,29 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<div class="container mt-5">
+    <h1>Manage Authors</h1>
+    <a href="/admin/addAuthor" class="btn btn-primary mb-3">Add New Author</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% authors.forEach(author => { %>
+                <tr>
+                    <td><%= author.authorId %></td>
+                    <td><%= author.firstName %> <%= author.lastName %></td>
+                    <td>
+                        <a href="/admin/editAuthor?id=<%= author.authorId %>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/admin/deleteAuthor?id=<%= author.authorId %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

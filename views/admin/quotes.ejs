@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<div class="container mt-5">
+    <h1>Manage Quotes</h1>
+    <a href="/admin/addQuote" class="btn btn-primary mb-3">Add New Quote</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Quote</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% quotes.forEach(quote => { %>
+                <tr>
+                    <td><%= quote.quote %></td>
+                    <td><%= quote.firstName %> <%= quote.lastName %></td>
+                    <td><%= quote.category %></td>
+                    <td>
+                        <a href="/admin/editQuote?id=<%= quote.quoteId %>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/admin/deleteQuote?id=<%= quote.quoteId %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

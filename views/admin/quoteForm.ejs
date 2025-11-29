@@ -1,0 +1,36 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<div class="container mt-5">
+    <h1><%= action %> Quote</h1>
+    <form action="/admin/<%= action == 'Edit' ? 'editQuote' : 'addQuote' %>" method="POST">
+        <% if (action == 'Edit') { %>
+            <input type="hidden" name="quoteId" value="<%= quote.quoteId %>">
+        <% } %>
+        <div class="mb-3">
+            <label class="form-label">Quote</label>
+            <textarea class="form-control" name="quote" required><%= quote.quote %></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <select class="form-select" name="authorId" required>
+                <% authors.forEach(author => { %>
+                    <option value="<%= author.authorId %>" <%= quote.authorId == author.authorId ? 'selected' : '' %>>
+                        <%= author.firstName %> <%= author.lastName %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <input type="text" class="form-control" name="category" value="<%= quote.category %>" list="categoryList" required>
+            <datalist id="categoryList">
+                <% categories.forEach(cat => { %>
+                    <option value="<%= cat.category %>">
+                <% }) %>
+            </datalist>
+        </div>
+        <button type="submit" class="btn btn-success"><%= action %></button>
+    </form>
+</div>
+</body>
+</html>
